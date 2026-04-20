@@ -136,9 +136,8 @@
 </script>
 
 <div class="container-fluid p-0">
-	<div class="map-sticky-wrapper">
-		<div bind:this={mapContainer} id="map"></div>
-		<div class="story-overlay">
+	<div class="row g-0 scrolly-container">
+		<div class="col-12 col-lg-5 story-column">
 			<section class="story-block">
 				<div class="story-card" data-type="intro">
 					<h1 class="h3 mb-3">Sea Urchins of the California Coast</h1>
@@ -161,6 +160,12 @@
 
 			<div class="spacer"></div>
 		</div>
+
+		<div class="col-12 col-lg-7 map-column">
+			<div class="map-sticky-wrapper">
+				<div bind:this={mapContainer} id="map"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -179,19 +184,16 @@
   background-repeat: no-repeat;
   background-position: center;
   }
-	/* Story Styling */
-	.story-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 40%;
-		height: 100%;
-		z-index: 2;
-		pointer-events: none; /* allow map interaction */
+	.scrolly-container {
+		display: flex;
+		align-items: stretch;
+		position: relative;
 	}
 
-	.story-overlay > * {
-		pointer-events: auto;
+	/* Story Styling */
+	.story-column {
+		position: relative;
+		z-index: 2;
 	}
 
 	.story-block {
@@ -225,6 +227,10 @@
 	}
 
 	/* Map Styling */
+	.map-column {
+		position: relative;
+	}
+
 	.map-sticky-wrapper {
 		position: sticky;
 		top: 0;
@@ -241,15 +247,14 @@
 
 	/* maybe for mobile needs to be different? */
 	@media (max-width: 1000px) {
-		.story-overlay {
-			width: 100%;
-			height: auto;
+		.map-column {
+			order: -1;
+			height: 40vh;
 			position: relative;
-			z-index: 1;
 		}
 		.map-sticky-wrapper {
 			position: relative;
-			height: 50vh;
+			height: 40vh;
 		}
 		.story-block {
 			height: auto;
