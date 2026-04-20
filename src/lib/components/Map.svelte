@@ -1,251 +1,259 @@
+<script>
+	import { onMount, onDestroy } from 'svelte';
 
+	// init variables
+	let map;
+	let mapContainer;
+	let openingBounds;
+	let activeState = null;
+	let observer;
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+	const locations = [
+		{
+			title: 'Fort Ross (Sonoma County)',
+			lat: 38.259141,
+			lon: -122.491092,
+			zoom: 12,
+			description:
+				'The rocky, sheltered coves of Fort Ross Cove provide a perfect habitat for purple sea urchins to settle.'
+		},
+		{
+			title: 'Shelter Cove (Sonoma County)',
+			lat: 40.028591,
+			lon: -124.072578,
+			zoom: 12,
+			description:
+				'Shelter Cove is a focal point of this issue because it is located in the heart of this ecological disaster.'
+		},
+		{
+			title: 'Caspar Cove (Mendocino County)',
+			lat: 39.363,
+			lon: -123.814,
+			zoom: 12,
+			description:
+				'The once-thriving kelp forests of Caspar Cove have been decimated by the voracious appetite of purple sea urchins.'
+		},
+		{
+			title: 'Stillwater Cove (Mendocino County)',
+			lat: 39.343,
+			lon: -123.821,
+			zoom: 12,
+			description:
+				'Stillwater Cove has been transformed into a desolate expanse due to the unchecked proliferation of purple sea urchins.'
+		},
+    {
+      title: "Point Loma Rocky Reefs (San Diego)",
+    lat: 32.6556,
+    lon: -117.2425,
+    zoom: 10,
+    description: "Southern California kelp forest edge habitat with established purple sea urchin populations on rocky reefs."
+    },
+    {
+    title: "La Jolla Cove Reef System",
+    lat: 32.8338,
+    lon: -117.2713,
+    zoom: 10,
+    description: "Rocky reef ecosystem with kelp forest influence and consistent purple sea urchin presence."
+  }
+	];
 
+	// this needs to be in an onMount, or ssr error otherwise
+	onMount(async () => {
+		const maplibregl = (await import('maplibre-gl')).default;
+    // same for css import i believe?
+		import('maplibre-gl/dist/maplibre-gl.css');
+
+		// more basemap styles are available
+		map = new maplibregl.Map({
+			container: mapContainer,
+			style: 'https://tiles.openfreemap.org/styles/liberty',
+			center: [-123, 39],
+			zoom: 7
+		});
+
+		// interactions
+		map.scrollZoom.disable();
+		map.dragPan.disable();
+		map.dragRotate.disable();
+
+		openingBounds = new maplibregl.LngLatBounds();
+		locations.forEach((loc) => {
+			const markerElement = document.createElement('div');
+			markerElement.className = 'custom-marker';
+			new maplibregl.Marker({ element: markerElement }).setLngLat([loc.lon, loc.lat]).addTo(map);
+			openingBounds.extend([loc.lon, loc.lat]);
+		});
+
+		// scrolly with intersection observer
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const { type, index } = entry.target.dataset;
+						if (type === 'intro') showOpeningOverview();
+						else activateLocation(Number(index));
+					}
+				});
+			},
+			{
+				threshold: 0.6 // trigger when 60% of the card is visible
+			}
+		);
+
+		document.querySelectorAll('.story-card').forEach((card) => observer.observe(card));
+
+		map.on('load', () => showOpeningOverview(false));
+	});
+
+	onDestroy(() => {
+		if (observer) observer.disconnect();
+		if (map) map.remove();
+	});
+
+	function showOpeningOverview(animated = true) {
+		// need to check if map is true
+		if (!map || activeState === 'intro') return;
+		activeState = 'intro';
+		map.fitBounds(openingBounds, {
+			padding: 100,
+			maxZoom: 7,
+			duration: animated ? 1500 : 0
+		});
+	}
+
+	function activateLocation(index) {
+		// need to check if map is true
+		if (!map || activeState === index) return;
+		const loc = locations[index];
+		activeState = index;
+		map.flyTo({
+			center: [loc.lon, loc.lat],
+			zoom: loc.zoom,
+			speed: 0.8,
+			essential: true
+		});
+	}
+</script>
+
+<div class="container-fluid p-0">
+	<div class="map-sticky-wrapper">
+		<div bind:this={mapContainer} id="map"></div>
+		<div class="story-overlay">
+			<section class="story-block">
+				<div class="story-card" data-type="intro">
+					<h1 class="h3 mb-3">Sea Urchins of the California Coast</h1>
+					<p>
+						The kelp forests of Northern California are disappearing. Scroll down to see the
+						affected areas.
+					</p>
+					<div class="scroll-indicator">↓ Scroll to begin</div>
+				</div>
+			</section>
+
+			{#each locations as location, index}
+				<section class="story-block">
+					<div class="story-card" data-type="location" data-index={index}>
+						<h2 class="h4 mb-3">{location.title}</h2>
+						<p>{location.description}</p>
+					</div>
+				</section>
+			{/each}
+
+			<div class="spacer"></div>
+		</div>
+	</div>
+</div>
+
+<style>
+	/* Reset and Layout */
+	:global(body) {
+		margin: 0;
+		padding: 0;
+	}
+
+  :global(.custom-marker) {
+  width: 56px;
+  height: 40px;
+  background-image: url('/Map_elements/uni.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  }
+	/* Story Styling */
+	.story-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 40%;
+		height: 100%;
+		z-index: 2;
+		pointer-events: none; /* allow map interaction */
+	}
+
+	.story-overlay > * {
+		pointer-events: auto;
+	}
+
+	.story-block {
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 2rem;
+	}
+
+	.story-card {
+		background: rgba(255, 255, 255, 0.95);
+		padding: 2rem;
+		border-radius: 12px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		max-width: 450px;
+		width: 100%;
+		border: 1px solid #eee;
+	}
+
+	.scroll-indicator {
+		margin-top: 2rem;
+		font-size: 0.9rem;
+		color: #666;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.spacer {
+		height: 50vh;
+	}
+
+	/* Map Styling */
+	.map-sticky-wrapper {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		background: #f8f9fa;
+	}
+
+	#map {
+		width: 100%;
+		height: 100%;
+	}
   
-  <div class="container-fluid">
-    <div class="row">
-      
-      <!-- Story cards holder-->
-      <div class="col-12 col-lg-5 story-column" id="story">
 
-        <!-- the first story block hard-coded. The others are generated -->
-        <section class="story-block intro-block">
-          <div class="story-card" data-card-type="intro">
-            <h2 class="h4 mb-3 text-center">Welcome to My Story Map</h2>
-            <p class="mb-0 text-center">Let me take you on a journey</p>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- Map holder -->
-      <div class="col-12 map-column">
-        <div class="map-fixed">
-          <div id="map"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    .story-block {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 1rem 2rem;
-    }
-
-    .story-card {
-      width: 100%;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08);
-    }
-
-    .map-column {
-      position: relative;
-      min-height: 100vh;
-    }
-
-    .map-fixed {
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100vh;
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-
-  <script>
-
-  import * as maplibregl from 'maplibre-gl';
-
-    const locations = [
-      {
-        title: "Fort Ross (Sonoma County)",
-        lat: 38.259141,
-        lon: -122.491092,
-        zoom: 8,
-        description: "The rocky, sheltered coves of Fort Ross Cove provide a perfect habitat for purple sea urchins to settle, leading to dense concentrations that locals are now attempting to harvest."
-      }, 
-      {
-        title: "Shelter Cove (Sonoma County)",
-        lat: 40.028591,
-        lon: -124.072578,
-        zoom: 8,
-        description: "Shelter Cove is a focal point of this issue because it is located in the heart of this ecological disaster, where a massive, once-abundant kelp forest has been replaced by a carpet of hungry purple urchins."
-      },
-      {
-        title: "Caspar Cove (Mendocino County)",
-        lat: 39.363,
-        lon: -123.814,
-        zoom: 8,
-        description: "The once-thriving kelp forests of Caspar Cove have been decimated by the voracious appetite of purple sea urchins, leaving behind a barren underwater landscape that has disrupted local ecosystems and livelihoods."
-      },
-      {
-        title: "Stillwater Cove (Mendocino County)",
-        lat: 39.343,
-        lon: -123.821,
-        zoom: 8,
-        description: "Stillwater Cove, once a vibrant marine habitat, has been transformed into a desolate expanse due to the unchecked proliferation of purple sea urchins, which have overgrazed the kelp forests and left behind a stark, barren seascape."
-      }
-    ]; //YOU NEED TO EDIT THIS LINE FOR THE MAP TO WORK
-
-
-    //Check out other basemap options here: https://madewithmaplibre.com/basemaps/gallery
-    const map = new maplibregl.Map({
-        container: "map",
-        style: "https://tiles.openfreemap.org/styles/liberty",
-
-      center: [-98.5795, 39.8283],
-      zoom: 3
-    });
-
-    //disable all interactions with the map
-    map.scrollZoom.disable();
-    map.dragPan.disable();
-    map.dragRotate.disable();
-    map.touchZoomRotate.disable();
-    map.doubleClickZoom.disable();
-    map.keyboard.disable();
-
-    // Add markers
-    locations.forEach(location => {
-      new maplibregl.Marker()
-        .setLngLat([location.lon, location.lat])
-        .addTo(map);
-    });
-
-    // Build bounds for opening overview
-    const openingBounds = new maplibregl.LngLatBounds();
-    locations.forEach(location => {
-      openingBounds.extend([location.lon, location.lat]);
-    });
-
-    const storyContainer = document.querySelector("#story");
-
-    locations.forEach((location, index) => {
-      const block = document.createElement("section");
-      block.className = "story-block";
-
-      block.innerHTML = `
-        <div class="story-card" data-card-type="location" data-location-index="${index}">
-          <h2 class="h4 mb-3">${location.title}</h2>
-          <p class="mb-0">${location.description}</p>
-        </div>
-      `;
-
-      storyContainer.appendChild(block);
-    });
-
-    const introCard = document.querySelector('.story-card[data-card-type="intro"]');
-    const allCards = document.querySelectorAll("#story .story-card");
-
-    let activeState = null;
-
-    function showOpeningOverview(animated = true) {
-      if (activeState === "intro") return;
-      activeState = "intro";
-
-      map.fitBounds(openingBounds, {
-        padding: { top: 80, right: 80, bottom: 80, left: 80 },
-        maxZoom: 5,
-        duration: animated ? 1200 : 0
-      });
-    }
-
-    function activateLocation(locationIndex) {
-      if (activeState === locationIndex) return;
-
-      const location = locations[locationIndex];
-      if (!location) return;
-
-      activeState = locationIndex;
-
-      map.flyTo({
-        center: [location.lon, location.lat],
-        zoom: location.zoom,
-        speed: 0.9,
-        curve: 1.2,
-        essential: true
-      });
-    }
-
-    function getClosestCardToViewportMiddle() {
-      const viewportMid = window.innerHeight / 2;
-      let closestCard = null;
-      let closestDistance = Infinity;
-
-      allCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + (rect.height / 2);
-        const distance = Math.abs(cardCenter - viewportMid);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestCard = card;
-        }
-      });
-
-      return closestCard;
-    }
-
-    function updateMapFromScroll() {
-      const closestCard = getClosestCardToViewportMiddle();
-      if (!closestCard) return;
-
-      const cardType = closestCard.dataset.cardType;
-
-      if (cardType === "intro") {
-        showOpeningOverview();
-        return;
-      }
-
-      if (cardType === "location") {
-        const locationIndex = Number(closestCard.dataset.locationIndex);
-        activateLocation(locationIndex);
-      }
-    }
-
-  
-    const observer = new IntersectionObserver(
-      entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            updateMapFromScroll();
-            break;
-          }
-        }
-      },
-      {
-        root: null,
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: 0
-      }
-    );
-
-    allCards.forEach(card => observer.observe(card));
-
-    window.addEventListener("scroll", updateMapFromScroll, { passive: true });
-    window.addEventListener("resize", updateMapFromScroll);
-
-    map.on("load", () => {
-      showOpeningOverview(false);
-    });
-  </script>
+	/* maybe for mobile needs to be different? */
+	@media (max-width: 1000px) {
+		.story-overlay {
+			width: 100%;
+			height: auto;
+			position: relative;
+			z-index: 1;
+		}
+		.map-sticky-wrapper {
+			position: relative;
+			height: 50vh;
+		}
+		.story-block {
+			height: auto;
+			padding: 4rem 1rem;
+		}
+	}
+</style>
