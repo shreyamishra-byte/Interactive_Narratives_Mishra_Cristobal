@@ -37,9 +37,15 @@ Any project-wide styles should go AFTER the Bootsrap import
 
 
 html, body {
-  height: 100%;
+  min-height: 100%;
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
+  background-image: url('/backgrounds/bluepaper.png');
+  background-size: auto;
+  background-position: top center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-color: #dce7ff;
 }
 
 
@@ -51,4 +57,17 @@ html, body {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+}
+
+/* Make Bootstrap containers transparent so background shows through */
+.container,
+.container-fluid,
+.row,
+[class*="col-"],
+figure,
+.card,
+.jumbotron,
+.bg-body-secondary {
+  background: transparent !important;
+  box-shadow: none !important;
 }

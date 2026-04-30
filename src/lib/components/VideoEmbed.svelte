@@ -78,7 +78,7 @@
   }
 
   function isDirectVideoFile(raw: string) {
-    return /\.(mp4|webm)(\?.*)?$/i.test(raw.trim());
+    return /\.(mp4|webm|mov)(\?.*)?$/i.test(raw.trim());
   }
 
   function normalizeStaticPath(raw: string) {
@@ -94,7 +94,7 @@
   type Resolved =
     | { kind: 'youtube'; embedUrl: string }
     | { kind: 'vimeo'; embedUrl: string }
-    | { kind: 'file'; fileUrl: string; mime: 'video/mp4' | 'video/webm' };
+    | { kind: 'file'; fileUrl: string; mime: 'video/mp4' | 'video/webm' | 'video/quicktime' };
 
   function resolveVideo(rawSrc: string): Resolved | null {
     const s = rawSrc.trim();
@@ -103,7 +103,14 @@
     // Direct file
     if (isDirectVideoFile(s)) {
       const fileUrl = normalizeStaticPath(s);
-      const mime = /\.webm(\?.*)?$/i.test(s) ? 'video/webm' : 'video/mp4';
+      let mime: 'video/mp4' | 'video/webm' | 'video/quicktime';
+      if (/\.webm(\?.*)?$/i.test(s)) {
+        mime = 'video/webm';
+      } else if (/\.mov(\?.*)?$/i.test(s)) {
+        mime = 'video/quicktime';
+      } else {
+        mime = 'video/mp4';
+      }
       return { kind: 'file', fileUrl, mime };
     }
 

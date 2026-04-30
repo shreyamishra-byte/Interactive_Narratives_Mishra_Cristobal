@@ -66,7 +66,7 @@
 		// more basemap styles are available
 		map = new maplibregl.Map({
 			container: mapContainer,
-			style: 'https://tiles.openfreemap.org/styles/liberty',
+			style: 'https://tiles.openfreemap.org/styles/positron',
 			center: [-123, 39],
 			zoom: 7
 		});
