@@ -27,6 +27,6 @@
 		margin: 0;
 		padding: 0;
 		height: 100%;
-		width: 1000%;
+		width: 100vw;
 	}
 </style>

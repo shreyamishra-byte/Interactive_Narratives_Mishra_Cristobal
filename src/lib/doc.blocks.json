@@ -1,7 +1,43 @@
 [
   {
     "type": "html",
-    "html": "<p>Tab 1</p>\n<h1>The Purple Urchin Removal Project is working to save coastal kelp forests one dive at a time</h1>\n<p>By Shreya &nbsp;Mishra &nbsp;and Paula Cristobal</p>\n<p>Purple sea urchins have become unlikely symbols of the climate crisis along the West Coast, as warming oceans and marine heat waves weaken giant and bull kelp, leaving these underwater forests vulnerable.</p>\n<p>With their predators, like sunflower sea stars, wiped out by disease linked to warming seas, purple urchin populations have exploded and shifted from quietly eating drifting kelp scraps to aggressively grazing live kelp down to the holdfast. In many places, lush, three&#8209;dimensional kelp forests that once sheltered fish, invertebrates, and marine mammals have collapsed into flat &ldquo;urchin barrens,&rdquo; purple carpets of starving yet still-living urchins that can persist even after most kelp is gone. </p>\n<p>"
+    "html": "<p>Tab 1</p>\n<p>"
+  },
+  {
+    "type": "shortcode",
+    "name": "Scrolly",
+    "attrs": {
+      "steps": [
+        {
+          "img": "/scrolly/01.jpg",
+          "alt": "Aerial view of the city at dusk",
+          "pos": "center",
+          "text": "On a breezy Sunday morning of late February, locals and divers came together at Schoolhouse Beach in Bodega Bay for a day full of unusual adventure. "
+        },
+        {
+          "img": "/scrolly/02.jpg",
+          "alt": "Close-up of hands typing",
+          "pos": "start",
+          "text": "Participants gathered around with their day's gatherings- a bag full of spikey purple balls."
+        },
+        {
+          "img": "/scrolly/03.jpg",
+          "alt": "Portrait of the interview subject",
+          "pos": "end",
+          "text": "Neither the adventure, nor the purple balls were what they seem. The divers were actually harvesting for purple sea urchins- a primary kelp hunter. The urchins are also known for their high quality uni and now it's time for the divers to taste these delicious attackers."
+        },
+        {
+          "img": "/scrolly/04.jpg",
+          "alt": "Portrait of the interview subject",
+          "pos": "end",
+          "text": "This little adventure actually serves a key role in addressing the rising population of purple sea urchins and restoring the dying kelp forests in Northern California."
+        }
+      ]
+    }
+  },
+  {
+    "type": "html",
+    "html": "</p>\n<h1>The Purple Urchin Removal Project is working to save coastal kelp forests one dive at a time</h1>\n<p>By Shreya &nbsp;Mishra &nbsp;and Paula Cristobal</p>\n<p>On a brisk morning during a negative tide, Maria Finn stands among the exposed rocks of the Sonoma Coast, reaching into saltwater crevices to pull out small, spiky purple spheres. &quot;The uni is delicious,&quot; she says, cracking one open to reveal the vibrant orange roe inside. &quot;It is fresh, it is sweet, it is really wonderful.&quot;</p>\n<p>For Finn, a journalist and forager, this isn&#39;t just a culinary excursion; it&rsquo;s a frontline defense against an ecological collapse. By bringing people to the water&#39;s edge to harvest purple sea urchins, she is attempting to rebuild a human connection to a coastline currently undergoing a radical transformation. &quot;Wild food foraging is such a great way to have a relationship with the coast,&quot; Finn explains. &quot;To really know what&rsquo;s taking place, and then to really know, like, hey, let&rsquo;s take care of this.&quot;</p>\n<p>"
   },
   {
     "type": "shortcode",
@@ -17,7 +53,7 @@
   },
   {
     "type": "html",
-    "html": "</p>\n<p>This transformation erodes coastal biodiversity, undermines fisheries and tribal livelihoods, and shows how climate change and ecological imbalance can work together to tip resilient ecosystems past a point of recovery.</p>\n<p>"
+    "html": "</p>\n<p>What foragers are witnessing on the surface is a symptom of what scientists call a &quot;perfect storm.&quot; Between 2014 and 2016, a record-breaking marine heatwave, a subsequent El Ni&ntilde;o, and a catastrophic bacterial disease that wiped out the urchin&rsquo;s primary predator&mdash;the sunflower sea star&mdash;converged on the North Coast. This confluence of events decimated 95% of California&#39;s bull kelp forests in just a few years. Unlike the commercially valuable red abalone, which starved during the crisis, the native purple sea urchin possesses a biological &quot;superpower&quot;: it can survive starvation conditions for years by slowing its metabolism, all while continuing to breed and mow down any new kelp spores that attempt to regrow.</p>\n<p>This transformation erodes coastal biodiversity, undermines fisheries and tribal livelihoods, and shows how climate change and ecological imbalance can work together to tip resilient ecosystems past a point of recovery.</p>\n<p>"
   },
   {
     "type": "shortcode",
@@ -30,7 +66,7 @@
   },
   {
     "type": "html",
-    "html": "</p>\n<p>Journalists in many nations have some privileges that members of the general public do not, including better access to public events, crime scenes and press conferences, and to extended interviews with public officials, celebrities and others in the public eye.</p>\n<p>Journalists who elect to cover conflicts, whether wars between nations or insurgencies within nations, often give up any expectation of protection by government, if not giving up their rights to protection from the government. Journalists who are captured or detained during a conflict are expected to be treated as civilians and to be released to their national government. Many governments around the world target journalists for intimidation, harassment, and violence because of the nature of their work.</p>\n<p>"
+    "html": "</p>\n<p>The scale of the disaster is difficult for the public to grasp because it happens beneath the waves. Lauren Bennett, a researcher at UC Davis, describes it as an &quot;invisible forest fire.&quot;</p>\n<p>&quot;If 95% of the redwood trees in Northern California died in one year, there would be a huge outcry,&quot; Bennett says. &quot;But since it&rsquo;s underwater, it&rsquo;s hard for people to relate.&quot;</p>\n<p>Bennett&rsquo;s lab has been monitoring these reefs since 2000. Her data confirms that the current state&mdash;vast &quot;urchin barrens&quot; stretching across 240 miles of coastline&mdash;is unprecedented in historical records. While sea urchins have always been part of the ecosystem, their population has spiked by an estimated 10,000%, transforming species-rich kelp forests into desolate landscapes of purple and pink-encrusted rock.</p>\n<p>"
   },
   {
     "type": "shortcode",
@@ -41,7 +77,7 @@
   },
   {
     "type": "html",
-    "html": "</p>\n<p>Journalists&#39; interaction with sources sometimes involves confidentiality, an extension of freedom of the press giving journalists a legal protection to keep the identity of a confidential informant private even when demanded by police or prosecutors; withholding their sources can land journalists in contempt of court, or in jail.</p>\n<p>"
+    "html": "</p>\n<p>The urgency of the restoration effort is mounting as climate scientists issue a <strong>&quot;Final El Ni&ntilde;o Watch&quot;</strong>&nbsp;for the summer of 2026. NOAA&rsquo;s Climate Prediction Center currently estimates a <strong>61% chance</strong>&nbsp;of El Ni&ntilde;o emerging by July.</p>\n<p>For the remnant patches of kelp currently clinging to life, another warm-water event could be the final blow. Warm water holds less nitrogen&mdash;the essential &quot;fuel&quot; bull kelp needs to grow its record-breaking two feet per day. Furthermore, researchers like <strong>Dan Okamoto</strong>&nbsp;at UC Berkeley are investigating how rising temperatures speed up urchin metabolism, potentially making them even hungrier and more aggressive in their grazing.</p>\n<p>"
   },
   {
     "type": "shortcode",
@@ -50,42 +86,6 @@
   },
   {
     "type": "html",
-    "html": "</p>\n<p>Journalism is the production and distribution of reports on events. The word journalism applies to the occupation, as well as citizen journalists who gather and publish information. Journalistic media include print, television, radio, Internet, and, in the past, newsreels.</p>\n<p>Concepts of the appropriate role for journalism vary between countries. In some nations, the news media are controlled by government intervention and are not fully independent. In others, the news media are independent of the government but instead operate as private industry motivated by profit. In addition to the varying nature of how media organizations are run and funded, countries may have differing implementations of laws handling the freedom of speech and libel cases. </p>\n<h3><strong>Example of a Scrolly stepper</strong></h3>\n<p>"
-  },
-  {
-    "type": "shortcode",
-    "name": "Scrolly",
-    "attrs": {
-      "steps": [
-        {
-          "img": "/scrolly/01.jpg",
-          "alt": "Aerial view of the city at dusk",
-          "pos": "center",
-          "text": "First block of text."
-        },
-        {
-          "img": "/scrolly/02.jpg",
-          "alt": "Close-up of hands typing",
-          "pos": "start",
-          "text": "Second block of text. This is a longer description to test design appearances. In the United States, journalism is produced by media organizations or by individuals. Bloggers are often, but not always, journalists. The Federal Trade Commission requires that bloggers who write about products received as promotional gifts to disclose that they received the products for free. This is intended to eliminate conflicts of interest and protect consumers."
-        },
-        {
-          "img": "/scrolly/03.jpg",
-          "alt": "Portrait of the interview subject",
-          "pos": "end",
-          "text": "Third block of text"
-        },
-        {
-          "img": "/scrolly/04.JPG",
-          "alt": "Portrait of the interview subject",
-          "pos": "end",
-          "text": "Fourth block of text"
-        }
-      ]
-    }
-  },
-  {
-    "type": "html",
-    "html": "</p>\n<h2>Example of a Subhead</h2>\n<p>Example caption 1 (A typewriter)</p>\n<p>Previous</p>\n<p>Next</p>\n<h2>More examples to come.</h2>"
+    "html": "</p>\n<p>Despite the grim forecast, there is a growing movement centered on &quot;regenerative fisheries.&quot; Unlike traditional fishing, where the goal is to protect a population from over-harvesting, the goal with purple urchins is to remove as many as possible.</p>\n<ul><li><strong>Urchin Ranching:</strong>&nbsp;Efforts are underway to harvest &quot;empty&quot; urchins from barrens and fatten them up in land-based tanks, turning an ecological nuisance into a high-value seafood product.</li><li><strong>Volunteer Culling:</strong>&nbsp;At spots like Stillwater Cove and Caspar Cove, community groups have removed over 70 tons of urchins to clear space for kelp restoration.</li><li><strong>Captive Breeding:</strong>&nbsp;In labs at Monterey Bay and Friday Harbor, scientists are successfully breeding sunflower sea stars in hopes of eventually reintroducing the &quot;natural check&quot; on the urchin population.</li></ul>\n<p>For Maria Finn and the community of foragers on the Sonoma Coast, every urchin removed is a small act of restoration. As the 2026 heat looms, the hope is that by tasting the problem, Californians will be motivated to solve it&mdash;protecting the coast not just from the urchins, but from the broader climate threats of warming waters and proposed offshore drilling.</p>"
   }
 ]

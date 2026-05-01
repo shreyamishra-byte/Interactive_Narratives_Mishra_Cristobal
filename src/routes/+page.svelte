@@ -24,13 +24,13 @@
 
 
 <!-- hard-coded custom code that should appear BEFORE Google Doc import can go here. -->
-<VideoBackground 
+<!-- <VideoBackground 
   src="/IMG_7777.MOV"
   title="Opening video"
   overlayContent={videoOverlayText}
-/>
+/> -->
 
-<ClickThroughImages />
+<!-- <ClickThroughImages /> -->
 
 <!-- Code imported from Google Doc -->
 <div class="container-fluid">
